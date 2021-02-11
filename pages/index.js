@@ -26,9 +26,7 @@ export default function Home() {
         </nav> */}
       </header>
       <section class="home-main-section">
-        <div class="img-wrapper">
-          <div class="lady-image"></div>
-        </div>
+        <div class="img-wrapper">{/* <div class="lady-image"></div> */}</div>
         <div class="call-to-action">
           <h1 class="title">Feel Amazing</h1>
           <span class="subtitle">With your mind...</span>
