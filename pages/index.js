@@ -1,7 +1,15 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 
-export default function Home() {
+import Link from "next/link";
+import styles from "../styles/Home.module.css";
+import axios from "axios";
+
+let pinataUrl = `https://gateway.pinata.cloud/ipfs/`;
+
+export default function Home(props) {
+  console.log(props);
+  const { pinataData } = props;
+
   return (
     <div className={`container full-height-grow`}>
       <Head>
@@ -9,36 +17,49 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header class="main-header">
-        <a href="/" class="brand-logo">
+      <header className="main-header">
+        <a href="/" className="brand-logo">
           {/* <img src="images/logo.png" /> */}
-          <div class="brand-logo-name">Breath Works</div>
+          <div className="brand-logo-name">Breath Works</div>
         </a>
-        {/* <nav class="main-nav">
+        <nav className="main-nav">
           <ul>
             <li>
-              <a href="discover.html">Discovery</a>
+              <Link href="/artConcept">Art Concepts</Link>
             </li>
             <li>
               <a href="join.html">Join</a>
             </li>
           </ul>
-        </nav> */}
+        </nav>
       </header>
-      <section class="home-main-section">
-        <div class="img-wrapper">{/* <div class="lady-image"></div> */}</div>
-        <div class="call-to-action">
-          <h1 class="title">Feel Amazing</h1>
-          <span class="subtitle">With your mind..</span>
-          <a href="/join.html" class="btn">
+      <section className="home-main-section">
+        <div className="img-wrapper">
+          {/* <div className="lady-image"></div> */}
+        </div>
+        <div className="call-to-action">
+          <h1 className="title">Feel Amazing</h1>
+          <span className="subtitle">With your mind..</span>
+          <a href="/join.html" className="btn">
             Follow your Breath
           </a>
         </div>
       </section>
 
-      <div class="home-page-circle-1"></div>
-      <div class="home-page-circle-2"></div>
-      <div class="home-page-circle-3"></div>
+      <section>
+        {pinataData.map((item) => (
+          <img
+            src={pinataUrl + item.ipfs_pin_hash}
+            alt={item.metadata.name}
+            layout="intrinsic"
+            width={"100%"}
+            // height={500}
+          />
+        ))}
+      </section>
+      <div className="home-page-circle-1"></div>
+      <div className="home-page-circle-2"></div>
+      <div className="home-page-circle-3"></div>
 
       <main className={styles.main}></main>
 
@@ -46,3 +67,42 @@ export default function Home() {
     </div>
   );
 }
+
+Home.getInitialProps = async (ctx) => {
+  console.log(`${process.env.PINATA_SECRET}`);
+  const res = await fetch("https://c3419.sse.codesandbox.io/dailyFocus");
+
+  const json = await res.json();
+  console.log("HERE", json);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${process.env.PINATA_SECRET}`,
+      "Content-Type": "application/json"
+    }
+  };
+  const v = {
+    folio: {
+      folio: "aldrich%",
+      op: "like"
+    }
+  };
+  console.log(config);
+  let pinataData = {};
+  try {
+    console.log(`${process.env.pinata_api_secret}`);
+    console.log(config);
+    const res = await axios.get(
+      // `https://api.pinata.cloud/data/pinList?status=pinned&metadata[name]=blogPost`,
+      "https://api.pinata.cloud/data/pinList?status=pinned&metadata[keyvalues]=" +
+        '{ "folio" : { "value" : "Aldrich", "op" : "eq"}}',
+      config
+    );
+    pinataData = res.data.rows;
+  } catch (error) {
+    throw error;
+  }
+
+  return { pinataData };
+  // return { stars: json };
+};
