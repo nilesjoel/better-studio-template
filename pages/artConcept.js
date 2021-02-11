@@ -68,11 +68,11 @@ export default function ArtExampleCard(props) {
 }
 
 ArtExampleCard.getInitialProps = async (ctx) => {
-  console.log(`${process.env.PINATA_SECRET}`);
-  const res = await fetch("https://c3419.sse.codesandbox.io/dailyFocus");
+  // console.log(`${process.env.PINATA_SECRET}`);
+  // const res = await fetch("https://c3419.sse.codesandbox.io/dailyFocus");
 
-  const json = await res.json();
-  console.log("HERE", json);
+  // const json = await res.json();
+  // console.log("HERE", json);
 
   const config = {
     headers: {
