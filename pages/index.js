@@ -25,10 +25,10 @@ export default function Home(props) {
         <nav className="main-nav">
           <ul>
             <li>
-              <Link href="/artConcept">Art Concepts</Link>
+              <Link href="/artConcept">Art Concept</Link>
             </li>
             <li>
-              <a href="join.html">Join</a>
+              <Link href="/join">Join</Link>
             </li>
           </ul>
         </nav>
@@ -45,7 +45,7 @@ export default function Home(props) {
           </a>
         </div>
       </section>
-
+      {/* 
       <section>
         {pinataData.map((item) => (
           <img
@@ -56,7 +56,7 @@ export default function Home(props) {
             // height={500}
           />
         ))}
-      </section>
+      </section> */}
       <div className="home-page-circle-1"></div>
       <div className="home-page-circle-2"></div>
       <div className="home-page-circle-3"></div>

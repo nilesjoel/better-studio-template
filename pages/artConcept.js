@@ -21,20 +21,20 @@ export default function ArtExampleCard(props) {
           {/* <img src="images/logo.png" /> */}
           <div className="brand-logo-name">Breath Works</div>
         </a>
-        {/* <nav className="main-nav">
+        <nav className="main-nav">
           <ul>
             <li>
-              <a href="discover.html">Discovery</a>
+              <Link href="/artConcept">Art Concept</Link>
             </li>
             <li>
-              <a href="join.html">Join</a>
+              <Link href="/join">Join</Link>
             </li>
           </ul>
-        </nav> */}
+        </nav>
       </header>
       <section className="home-main-section">
-        <div className="img-wrapper">
-          {/* <div className="lady-image"></div> */}
+        {/* <div className="img-wrapper">
+          <div className="lady-image"></div>
         </div>
         <div className="call-to-action">
           <h1 className="title">Feel Amazing</h1>
@@ -42,7 +42,7 @@ export default function ArtExampleCard(props) {
           <a href="/join.html" className="btn">
             Follow your Breath
           </a>
-        </div>
+        </div> */}
       </section>
 
       <section>
