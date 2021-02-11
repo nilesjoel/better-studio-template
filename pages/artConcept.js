@@ -3,12 +3,15 @@ import Head from "next/head";
 import Link from "next/link";
 import styles from "../styles/ArtExampleCard.module.css";
 import axios from "axios";
-
+import getConfig from "next/config";
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 let pinataUrl = `https://gateway.pinata.cloud/ipfs/`;
 
 export default function ArtExampleCard(props) {
-  console.log(props);
+  // console.log(props);
   const { pinataData } = props;
+
+  console.log("prt", publicRuntimeConfig.pinata_secret);
   return (
     <div className={`container full-height-grow`}>
       <Head>
@@ -46,15 +49,18 @@ export default function ArtExampleCard(props) {
       </section>
 
       <section>
-        {pinataData.map((item) => (
-          <img
-            src={pinataUrl + item.ipfs_pin_hash}
-            alt={item.metadata.name}
-            layout="intrinsic"
-            width={"100%"}
-            // height={500}
-          />
-        ))}
+        {pinataData.length &&
+          pinataData.map((item) => (
+            <div key={item.id}>
+              <img
+                src={pinataUrl + item.ipfs_pin_hash}
+                alt={item.metadata.name}
+                layout="intrinsic"
+                width={"100%"}
+                // height={500}
+              />
+            </div>
+          ))}
       </section>
       <div className="home-page-circle-1"></div>
       <div className="home-page-circle-2"></div>
@@ -73,10 +79,9 @@ ArtExampleCard.getInitialProps = async (ctx) => {
 
   // const json = await res.json();
   // console.log("HERE", json);
-
   const config = {
     headers: {
-      Authorization: `Bearer ${process.env.PINATA_SECRET}`,
+      Authorization: publicRuntimeConfig.pinata_secret,
       "Content-Type": "application/json"
     }
   };
@@ -86,10 +91,10 @@ ArtExampleCard.getInitialProps = async (ctx) => {
       op: "like"
     }
   };
-  console.log(config);
+  // console.log(config);
   let pinataData = {};
   try {
-    console.log(`${process.env.pinata_api_secret}`);
+    console.log(publicRuntimeConfig.pinata_secret);
     console.log(config);
     const res = await axios.get(
       // `https://api.pinata.cloud/data/pinList?status=pinned&metadata[name]=blogPost`,
@@ -99,7 +104,7 @@ ArtExampleCard.getInitialProps = async (ctx) => {
     );
     pinataData = res.data.rows;
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 
   return { pinataData };
