@@ -29,7 +29,7 @@ export default function Home() {
         <div class="img-wrapper">{/* <div class="lady-image"></div> */}</div>
         <div class="call-to-action">
           <h1 class="title">Feel Amazing</h1>
-          <span class="subtitle">With your mind...</span>
+          <span class="subtitle">With your mind..</span>
           <a href="/join.html" class="btn">
             Follow your Breath
           </a>
