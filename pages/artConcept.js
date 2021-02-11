@@ -94,8 +94,8 @@ ArtExampleCard.getInitialProps = async (ctx) => {
   // console.log(config);
   let pinataData = {};
   try {
-    console.log(publicRuntimeConfig.pinata_secret);
-    console.log(config);
+    // console.log(publicRuntimeConfig.pinata_secret);
+    // console.log(config);
     const res = await axios.get(
       // `https://api.pinata.cloud/data/pinList?status=pinned&metadata[name]=blogPost`,
       "https://api.pinata.cloud/data/pinList?status=pinned&metadata[keyvalues]=" +
