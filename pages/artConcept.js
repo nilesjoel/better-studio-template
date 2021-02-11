@@ -11,7 +11,7 @@ export default function ArtExampleCard(props) {
   // console.log(props);
   const { pinataData } = props;
 
-  console.log("prt", publicRuntimeConfig.pinata_secret);
+  // console.log("prt", publicRuntimeConfig.pinata_secret);
   return (
     <div className={`container full-height-grow`}>
       <Head>
